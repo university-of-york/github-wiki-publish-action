@@ -9,6 +9,10 @@ inputs:
     description: "A path to the directory in the wiki repository to publish to"
     required: true
     default: ./
+  delete-existing:
+    description: "Whether to delete files existing in the target path that aren't present in the source path"
+    required: true
+    default: false
 
 runs:
   using: "docker"
@@ -16,6 +20,7 @@ runs:
   args: 
     - ${{ inputs.source-path }}
     - ${{ inputs.target-path }}
+    - ${{ inputs.delete-existing }}
 
 branding:
   icon: "book-open"

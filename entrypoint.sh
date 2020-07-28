@@ -50,8 +50,13 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     git pull "$GIT_REPOSITORY_URL"
 )
 
-debug "Syncing contents of $1 to repository"
-rsync -avzr --exclude='.git/' "$1/" "$tmp_dir/$2/"
+if [ $3 = "true" ]; then
+    echo "Syncing contents of $1 to repository with --delete flag"
+    rsync -avzr --delete --exclude='.git/' "$1/" "$tmp_dir/$2/"
+else
+    echo "Syncing contents of $1 to repository"
+    rsync -avzr --exclude='.git/' "$1/" "$tmp_dir/$2/"
+fi
 
 debug "Committing and pushing changes"
 (
