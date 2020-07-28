@@ -51,7 +51,7 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 )
 
 debug "Syncing contents of $1 to repository"
-rsync -avzr --exclude='.git/' "$1" "$tmp_dir/$2"
+rsync -avzr --exclude='.git/' "$1/" "$tmp_dir/$2/"
 
 debug "Committing and pushing changes"
 (
