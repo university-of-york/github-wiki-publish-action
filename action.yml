@@ -2,14 +2,20 @@ name: "Publish to GitHub Wiki"
 description: "Pushes files to a GitHub project's wiki"
 
 inputs:
-  path:
+  source-path:
     description: "A path to the directory of files to publish"
     required: true
+  target-path:
+    description: "A path to the directory in the wiki repository to publish to"
+    required: true
+    default: ./
 
 runs:
   using: "docker"
   image: "Dockerfile"
-  args: ["${{ inputs.path }}"]
+  args: 
+    - ${{ inputs.source-path }}
+    - ${{ inputs.target-path }}
 
 branding:
   icon: "book-open"
