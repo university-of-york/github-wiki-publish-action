@@ -7,8 +7,12 @@ from a workflow.
 ## Usage
 
 In a new or existing workflow,
-add a step using `SwiftDocOrg/github-wiki-publish-action@v1`
-with a path to a directory containing the documentation you wish to upload.
+add a step using `university-of-york/github-wiki-publish-action@2.0.0`
+with the following parameters:
+
+- `source-path` - A path to the directory of files to publish
+- `target-path` - A path to the directory in the wiki repository to publish to (optional, default: `./`)
+- `delete-existing` - Whether to delete files existing in the target path that aren't present in the source path (optional, default: `false`)
 
 ```yml
 name: Documentation
@@ -23,9 +27,11 @@ jobs:
       - uses: actions/checkout@v1
       # Additional steps to generate documentation in "Documentation" directory
       - name: Upload Documentation to Wiki
-        uses: SwiftDocOrg/github-wiki-publish-action@v1
+        uses: university-of-york/github-wiki-publish-action@2.0.0
         with:
-          path: "Documentation"
+          source-path: /docs
+          target-path: ./
+          delete-existing: false
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 ```
@@ -98,10 +104,6 @@ pasting your token into the "Value" field.
 ## License
 
 MIT
-
-## Contact
-
-Mattt ([@mattt](https://twitter.com/mattt))
 
 [github actions]: https://help.github.com/en/actions
 [github wiki]: https://help.github.com/en/github/building-a-strong-community/about-wikis
